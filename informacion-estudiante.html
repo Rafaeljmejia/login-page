@@ -3,122 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Información del Estudiante</title>
+    <title>Panel de Profesores - Tecnología</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .student-info {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .student-info h1 {
-            text-align: center;
-        }
-        .info-section {
-            margin-bottom: 20px;
-        }
-        .info-section h2 {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 5px;
-        }
-        .info-table {
+        table {
             width: 100%;
             border-collapse: collapse;
         }
-        .info-table th, .info-table td {
+        th, td {
+            padding: 10px;
             border: 1px solid #ddd;
-            padding: 8px;
+            text-align: left;
         }
-        .info-table th {
+        th {
             background-color: #f2f2f2;
         }
-        .back-btn {
+        .edit-btn, .save-btn {
+            background-color: #4CAF50; /* Verde */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .save-btn {
+            background-color: #2196F3; /* Azul */
+        }
+        .filter-btn {
             background-color: #f44336; /* Rojo */
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 5px 10px;
             cursor: pointer;
-            border-radius: 5px;
-            display: block;
-            margin: 20px auto;
-            text-align: center;
+            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <div class="student-info">
-        <h1>Información del Estudiante</h1>
-        <div class="info-section">
-            <h2>Datos Personales</h2>
-            <table class="info-table">
-                <tr>
-                    <th>Nombre</th>
-                    <td>Isabella Sophia Diaz Rubiano</td>
-                </tr>
-                <tr>
-                    <th>Correo</th>
-                    <td>isabelladiazr@rafaeljmejia.edu.co</td>
-                </tr>
-                <tr>
-                    <th>Grado</th>
-                    <td>10B</td>
-                </tr>
-            </table>
-        </div>
-        <div class="info-section">
-            <h2>Familia</h2>
-            <table class="info-table">
-                <tr>
-                    <th>Nombre del Padre</th>
-                    <td>Nilson Diaz</td>
-                </tr>
-                <tr>
-                    <th>Teléfono del Padre</th>
-                    <td>3217896541</td>
-                </tr>
-                <tr>
-                    <th>Nombre de la Madre</th>
-                    <td>Angela Rubiano</td>
-                </tr>
-                <tr>
-                    <th>Teléfono de la Madre</th>
-                    <td>3204567890</td>
-                </tr>
-            </table>
-        </div>
-        <div class="info-section">
-            <h2>Información Académica</h2>
-            <table class="info-table">
-                <tr>
-                    <th>Asignatura</th>
-                    <th>Llamados de Atención</th>
-                    <th>Situaciones</th>
-                </tr>
-                <tr>
-                    <td>Lengua Castellana</td>
-                    <td>1</td>
-                    <td>Ninguna</td>
-                </tr>
-                <tr>
-                    <td>Tecnología</td>
-                    <td>2</td>
-                    <td>Hablar en clase</td>
-                </tr>
-                <tr>
-                    <td>Matemáticas</td>
-                    <td>Ninguno</td>
-                    <td>Ninguna</td>
-                </tr>
-                <tr>
-                    <td>Historia</td>
-                    <td>1</td>
-                    <td>Falta de tarea</td>
-                </tr>
-           
+
+<h2>Panel de Profesores - Tecnología</h2>
+
+<div>
+    <button class="filter-btn" onclick="filterTable('')">Todos</button>
+    <button class="filter-btn" onclick="filterTable('10A')">10A</button>
+    <button class="filter-btn" onclick="filterTable('10B')">10B</button>
+    <button class="filter-btn" onclick="filterTable('10C')">10C</button>
+    <button class="filter-btn" onclick="filterTable('11A')">11A</button>
+    <button class="filter-btn" onclick="filterTable('11B')">11B</button>
+    <button class="filter-btn" onclick="filterTable('11C')">11C</button>
+</div>
+
+<table id="student-table">
+    <thead>
+        <tr>
+            <th>Nombre del Estudiante</th>
+            <th>Llamadas de Atención</th>
+            <th>Situaciones</th>
+            <th>Editar</th>
+        </tr>
+    </thead>
+    <tbody id="student-tbody">
+        <!-- Aquí se rellenará la tabla dinámicamente -->
+    </tbody>
+</table>
+
+<script>
+    const students = [
+        "Juan Manuel Acosta", "Daniel Fernando", "Salome Córdoba", "Anni Cruz", "Juan José Diaz", 
+        "Isabella Diaz", "Emanuel Torrado", "Isabel Ochoa", "Luna Fernández", "Estefanía Gallego", 
+        "Juan José Gallo", "Andrew Gomez", "Zayret", "Isabella Jaramillo", "Santiago López", 
+        "Valentina Lora", "Miguel Marín", "Juan José Medina", "Santiago Molina", "Andrea Muñoz", 
+        "Juan Miguel Nieto", "Víctor Ochoa", "Daniel Pacheco", "Samuel Payares", "Edwin Quiroz", 
+        "Samuel Ramírez", "María de los Ángeles", "Juanita del Mar", "Sofía Salebe", "Axel Sánchez", 
+        "Samuel Tabares", "Jerónimo Toro", "Ana Sofía", "Jerónimo Vásquez", "Samuel Velasco", 
+        "Sara Vélez", "Aron Mauricio", "Miguel Yepes", "Tomas Yepes"
+    ];
+
+    function initializeStudentData() {
+        students.forEach(name => {
+            if (!localStorage.getItem(name)) {
+                const studentData = {
+                    attentionCalls: 0,
+                    situations: 'Ninguna'
+                };
+                localStorage.setItem(name, JSON.stringify(studentData));
+            }
+        });
+    }
+
+    function loadStudentData() {
+        const tbody = document.getElementById('student-tbody');
+        tbody.innerHTML = '';
+
+        students.forEach(name => {
+            const studentData = JSON.parse(localStorage.getItem(name)) || {
+                attentionCalls: 0,
+                situations: 'Ninguna'
+            };
+
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-group', '10B');
+
+            tr.innerHTML = `
+                <td>${name}</td>
+                <td>${studentData.attentionCalls}</td>
+                <td>${studentData.situations}</td>
+                <td><a href="editar-estudiante.html?name=${encodeURIComponent(name)}" class="edit-btn">Editar</a></td>
+            `;
+
+            tbody.appendChild(tr);
+        });
+    }
+
+    function filterTable(group) {
+        const rows = document.querySelectorAll('#student-tbody tr');
+        rows.forEach(row => {
+            if (group === '' || row.getAttribute('data-group') === group) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initializeStudentData();
+        loadStudentData();
+    });
+</script>
+
+</body>
+</html>
